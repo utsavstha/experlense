@@ -94,15 +94,15 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
     void initRenders(){
         // local and remote render
 
-        if(isTechnician){
+        //if(isTechnician){
             remoteRender = VideoRendererGui.create(
                     REMOTE_X, REMOTE_Y,
                     REMOTE_WIDTH, REMOTE_HEIGHT, scalingType, false);
-        }else{
+       // }else{
             localRender = VideoRendererGui.create(
                     LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
                     LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING, scalingType, true);
-        }
+       // }
     }
 
     void initScreenView(){
@@ -359,7 +359,7 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
 
     @Override
     public void onLocalStream(MediaStream localStream) {
-        if(isTechnician)return;
+       // if(isTechnician)return;
 
         localStream.videoTracks.get(0).addRenderer(new VideoRenderer(localRender));
 
@@ -371,7 +371,7 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
 
     @Override
     public void onAddRemoteStream(MediaStream remoteStream, int endPoint) {
-        if(!isTechnician)return;
+       // if(!isTechnician)return;
         remoteStream.videoTracks.get(0).addRenderer(new VideoRenderer(remoteRender));
 
         VideoRendererGui.update(remoteRender,
