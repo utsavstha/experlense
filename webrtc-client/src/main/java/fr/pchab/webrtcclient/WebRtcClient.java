@@ -333,6 +333,7 @@ public class WebRtcClient {
         }
         videoSource.dispose();
         factory.dispose();
+        client.off();
         client.disconnect();
         client.close();
     }
