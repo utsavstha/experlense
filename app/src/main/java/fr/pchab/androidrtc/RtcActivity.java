@@ -42,7 +42,6 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
     private static final int REMOTE_WIDTH = 100;
     private static final int REMOTE_HEIGHT = 100;
 
-
     private VideoRendererGui.ScalingType scalingType = VideoRendererGui.ScalingType.SCALE_ASPECT_FILL;
     private GLSurfaceView glSurfaceView;
     private VideoRenderer.Callbacks localRender;
@@ -51,14 +50,10 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
     private String serverAddress;
     private String technicianId;
     private String clientId;
-
     private boolean callReady = false;
-
     Button pauseBtn;
     boolean isPaused = false;
-
     DrawingView drawingView = null;
-
     boolean isTechnician = false;
 
 
@@ -85,7 +80,6 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
 
         initScreenView(); //make the camera readers/displayers ready
         initRenders();//makes the screen ready
-
         initDrawingView();
 
 
@@ -161,6 +155,8 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
             }
         });
 
+
+        //if is expert
         if(isTechnician){
             pauseBtn.setVisibility(View.VISIBLE);
             drawingView.setCanDraw(false);
@@ -362,7 +358,6 @@ public class RtcActivity extends Activity implements WebRtcClient.RtcListener {
         if(isTechnician)return;
 
         localStream.videoTracks.get(0).addRenderer(new VideoRenderer(localRender));
-
         VideoRendererGui.update(localRender,
                 LOCAL_X_CONNECTING, LOCAL_Y_CONNECTING,
                 LOCAL_WIDTH_CONNECTING, LOCAL_HEIGHT_CONNECTING,

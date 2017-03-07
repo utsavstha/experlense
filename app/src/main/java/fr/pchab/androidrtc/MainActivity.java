@@ -1,7 +1,12 @@
 package fr.pchab.androidrtc;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,14 +34,28 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnReadyToReceive, call;
 
+    int PERMISSION_ALL = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        String[] PERMISSIONS = {Manifest.permission.CALL_PHONE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_SMS, Manifest.permission.CAMERA};
+
+        if(!hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
+        }
+
+
         btnReadyToReceive = (Button) findViewById(R.id.ready_to_receive);
+
+
         call = (Button) findViewById(R.id.call);
 
+
+        //i am a expert
         btnReadyToReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         final RequestQueue queue = Volley.newRequestQueue(this);
 
         progressDialog.setTitle("Loading technicians...");
+
+
+        //i am a user
         call.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String s) {
                         progressDialog.hide();
-
                         try {
                             JSONArray array = new JSONArray(s);
                             if(array.length() ==0){
@@ -107,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
                                             intent.putExtra("receiver", expert.id);
                                             startActivity(intent);
 
-
                                             Toast.makeText(MainActivity.this, ""+ which, Toast.LENGTH_SHORT).show();
                                             return true;
                                         }
@@ -148,5 +168,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    //permissions fro marsh mallow
+
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

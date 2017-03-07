@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">AndroidRTC</string>
     <!--<string name="host">139.162.6.88</string>-->
-    <string name="host">192.168.10.22</string>
+    <string name="host">192.168.10.44</string>
     <string name="port">3000</string>
     <string name="action_settings">Options</string>
 </resources>
